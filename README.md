@@ -509,7 +509,7 @@ utility.load_url("https://raw.githubusercontent.com/HungryKelvin123/VGui/refs/he
 
 vgui.set_theme("ocean")
 
-vgui.bind("menu", 0x2D)
+vgui.bind("menu", 0x50)
 
 function on_frame()
     vgui.new_frame()
