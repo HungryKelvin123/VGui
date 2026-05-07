@@ -154,51 +154,87 @@ vgui.end_window()
 
 ---
 
-## Label
+## `vgui.label(text, color)`
 
 Draws text.
 
 ```lua
-vgui.label("Hello")
+vgui.label("Hello world")
 ```
 
-### Custom Color
+Custom color:
 
 ```lua
-vgui.label("Warning", {1, 0, 0, 1})
+vgui.label(
+    "Warning",
+    {1, 0, 0, 1}
+)
+```
+
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `text` | string | Text to display |
+| `color` | table/nil | Optional RGBA color `{r, g, b, a}` |
+
+### Example Colors
+
+```lua
+{1, 0, 0, 1} -- red
+{0, 1, 0, 1} -- green
+{0, 0, 1, 1} -- blue
 ```
 
 ---
 
-## Separator
+## `vgui.separator()`
 
-Draws a horizontal line.
+Draws a horizontal separator line.
 
 ```lua
 vgui.separator()
 ```
 
+This function takes no arguments.
+
 ---
 
-## Spacing
+## `vgui.spacing(amount)`
 
-Adds vertical spacing.
+Adds vertical spacing between widgets.
 
 ```lua
 vgui.spacing(10)
 ```
 
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `amount` | number | Amount of vertical spacing in pixels |
+
 ---
 
-## Checkbox
+## `vgui.checkbox(id, label, default)`
+
+Creates a checkbox.
 
 ```lua
 local enabled = vgui.checkbox(
-    "enabled",
+    "esp_enabled",
     "Enable ESP",
     false
 )
 ```
+
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `id` | string | Unique internal ID used for storing the value |
+| `label` | string | Text shown next to the checkbox |
+| `default` | boolean | Starting value (`true` or `false`) |
 
 ### Returns
 
@@ -206,9 +242,27 @@ local enabled = vgui.checkbox(
 boolean
 ```
 
+Returns the current checkbox state.
+
+### Example
+
+```lua
+local enabled = vgui.checkbox(
+    "aimbot_enabled",
+    "Enable Aimbot",
+    true
+)
+
+if enabled then
+    print("Aimbot enabled")
+end
+```
+
 ---
 
-## Integer Slider
+## `vgui.slider_int(id, label, min, max, default)`
+
+Creates an integer slider.
 
 ```lua
 local value = vgui.slider_int(
@@ -220,15 +274,41 @@ local value = vgui.slider_int(
 )
 ```
 
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `id` | string | Unique internal ID |
+| `label` | string | Text displayed above the slider |
+| `min` | number | Minimum value |
+| `max` | number | Maximum value |
+| `default` | number | Starting value |
+
 ### Returns
 
 ```lua
 number
 ```
 
+Returns the current integer value.
+
+### Example
+
+```lua
+local fov = vgui.slider_int(
+    "aim_fov",
+    "Aim FOV",
+    1,
+    180,
+    90
+)
+```
+
 ---
 
-## Float Slider
+## `vgui.slider_float(id, label, min, max, default, format)`
+
+Creates a float slider.
 
 ```lua
 local value = vgui.slider_float(
@@ -241,21 +321,51 @@ local value = vgui.slider_float(
 )
 ```
 
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `id` | string | Unique internal ID |
+| `label` | string | Text displayed above the slider |
+| `min` | number | Minimum value |
+| `max` | number | Maximum value |
+| `default` | number | Starting value |
+| `format` | string/nil | Lua number format string |
+
 ### Returns
 
 ```lua
 number
 ```
 
----
+Returns the current float value.
 
-## Button
+### Common Formats
 
 ```lua
-if vgui.button("apply", "Apply") then
+"%.1f" -- 0.5
+"%.2f" -- 0.50
+"%.3f" -- 0.500
+```
+
+---
+
+## `vgui.button(id, label)`
+
+Creates a button.
+
+```lua
+if vgui.button("save_btn", "Save Config") then
     print("Clicked")
 end
 ```
+
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `id` | string | Unique internal button ID |
+| `label` | string | Text displayed on the button |
 
 ### Returns
 
@@ -265,13 +375,23 @@ boolean
 
 Returns `true` only on the frame the button was clicked.
 
+### Example
+
+```lua
+if vgui.button("panic_btn", "Panic") then
+    unload_cheat()
+end
+```
+
 ---
 
-## Combo Box
+## `vgui.combo(id, label, items, default)`
+
+Creates a dropdown combo box.
 
 ```lua
 local selected = vgui.combo(
-    "weapon",
+    "weapon_select",
     "Weapon",
     {
         "AK47",
@@ -282,6 +402,15 @@ local selected = vgui.combo(
 )
 ```
 
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `id` | string | Unique internal ID |
+| `label` | string | Text displayed above the combo |
+| `items` | table | List of selectable options |
+| `default` | number | Starting selected index |
+
 ### Returns
 
 ```lua
@@ -290,17 +419,48 @@ number
 
 Returns the selected index.
 
+### Example
+
+```lua
+local mode = vgui.combo(
+    "hitbox",
+    "Hitbox",
+    {
+        "Head",
+        "Chest",
+        "Stomach"
+    },
+    1
+)
+```
+
+If `"Chest"` is selected, the function returns:
+
+```lua
+2
+```
+
 ---
 
-## Hotkey
+## `vgui.hotkey(id, label, default_vk)`
+
+Creates a keybind selector.
 
 ```lua
 local key = vgui.hotkey(
     "menu_key",
     "Menu Key",
-    0x2D
+    0x50
 )
 ```
+
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `id` | string | Unique internal ID |
+| `label` | string | Text displayed above the hotkey |
+| `default_vk` | number | Default virtual key code |
 
 ### Returns
 
@@ -308,16 +468,31 @@ local key = vgui.hotkey(
 number
 ```
 
-Returns the virtual key code.
+Returns the current virtual key code.
 
 ### Notes
 
 - Press `ESC` to clear the keybind
 - Supports keyboard and mouse buttons
 
+### Common Keys
+
+| Key | Hex |
+|---|---|
+| LMB | `0x01` |
+| RMB | `0x02` |
+| SHIFT | `0x10` |
+| CTRL | `0x11` |
+| ALT | `0x12` |
+| SPACE | `0x20` |
+| P | `0x50` |
+| F1 | `0x70` |
+
 ---
 
-## Color Editor
+## `vgui.color_edit(id, label, default_color)`
+
+Creates a color editor.
 
 ```lua
 local color = vgui.color_edit(
@@ -327,10 +502,33 @@ local color = vgui.color_edit(
 )
 ```
 
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `id` | string | Unique internal ID |
+| `label` | string | Text displayed above the color editor |
+| `default_color` | table | Starting color `{r, g, b, a}` |
+
 ### Returns
 
 ```lua
 {r, g, b, a}
+```
+
+Each value ranges from:
+
+```lua
+0.0 -> 1.0
+```
+
+### Example Colors
+
+```lua
+{1, 0, 0, 1} -- red
+{0, 1, 0, 1} -- green
+{0, 0, 1, 1} -- blue
+{1, 1, 1, 1} -- white
 ```
 
 Each value ranges from `0.0` to `1.0`.
