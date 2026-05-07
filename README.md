@@ -4,6 +4,9 @@ A lightweight immediate-mode GUI library for the Vector Lua Engine.
 
 ---
 
+<img width="608" height="774" alt="image" src="https://github.com/user-attachments/assets/8bd9e396-df38-4d29-a963-48f51563cc87" />
+
+
 # Installation
 
 You can load the library directly from GitHub:
