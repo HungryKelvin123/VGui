@@ -503,11 +503,12 @@ function vgui.end_window()
     end
 
     if not win.collapsed then
-        local clip_top = wy + t.title_height
+        local clip_top = wy + t.title_height + pad
         local clip_bot = wy + wh - pad
 
+
         for _, item in ipairs(items_snap) do
-            if item.ay + item.ah >= clip_top and item.ay <= clip_bot then
+            if item.ay >= clip_top and item.ay + item.ah <= clip_bot then
                 table.insert(dl, item.fn)
             end
         end
@@ -649,8 +650,10 @@ function vgui.slider_int(id, label, min_v, max_v, default)
         draw.rect_filled(sx, sy, sw, sh, t.slider_track, t.widget_rounding)
         draw.rect(sx, sy, sw, sh, t.window_border, t.widget_rounding, 1)
         local r = (cv - min_v) / math.max(1, max_v - min_v)
-        draw.rect_filled(sx, sy, math.max(sh, r * sw), sh, t.slider_fill, t.widget_rounding)
-        draw.rect_filled(sx + r * sw - sh * 0.5, sy, sh, sh, t.slider_grab, t.widget_rounding)
+        local grab_x = math.max(sx, math.min(sx + sw - sh, sx + r * sw - sh * 0.5))
+        local fill_w = math.max(0, grab_x - sx + sh * 0.5)
+        draw.rect_filled(sx, sy, fill_w, sh, t.slider_fill, t.widget_rounding)
+        draw.rect_filled(grab_x, sy, sh, sh, t.slider_grab, t.widget_rounding)
     end)
     return val
 end
@@ -685,8 +688,10 @@ function vgui.slider_float(id, label, min_v, max_v, default, fmt)
         draw.rect_filled(sx, sy, sw, sh, t.slider_track, t.widget_rounding)
         draw.rect(sx, sy, sw, sh, t.window_border, t.widget_rounding, 1)
         local r = (cv - min_v) / math.max(0.000001, max_v - min_v)
-        draw.rect_filled(sx, sy, math.max(sh, r * sw), sh, t.slider_fill, t.widget_rounding)
-        draw.rect_filled(sx + r * sw - sh * 0.5, sy, sh, sh, t.slider_grab, t.widget_rounding)
+        local grab_x = math.max(sx, math.min(sx + sw - sh, sx + r * sw - sh * 0.5))
+        local fill_w = math.max(0, grab_x - sx + sh * 0.5)
+        draw.rect_filled(sx, sy, fill_w, sh, t.slider_fill, t.widget_rounding)
+        draw.rect_filled(grab_x, sy, sh, sh, t.slider_grab, t.widget_rounding)
     end)
     return val
 end
