@@ -1,5 +1,8 @@
 vgui = {}
 
+vgui.offset_x = 0
+vgui.offset_y = 0
+
 vgui.theme = {
     window_bg         = {0.10, 0.10, 0.13, 0.96},
     window_border     = {0.28, 0.28, 0.35, 1.00},
@@ -47,51 +50,51 @@ vgui.themes = {}
 vgui.themes.dark_blue = {}
 
 vgui.themes.blood = {
-    title_bg          = {0.22, 0.04, 0.04, 1.00},
-    accent            = {0.80, 0.12, 0.12, 1.00},
-    accent_hovered    = {0.95, 0.22, 0.22, 1.00},
-    accent_dim        = {0.55, 0.05, 0.05, 1.00},
-    check_on          = {0.80, 0.12, 0.12, 1.00},
-    slider_fill       = {0.75, 0.10, 0.10, 1.00},
-    slider_grab       = {0.90, 0.28, 0.28, 1.00},
-    button_active     = {0.80, 0.12, 0.12, 1.00},
-    collapse_arrow_on = {0.80, 0.12, 0.12, 1.00},
+    title_bg={0.22,0.04,0.04,1},
+    accent={0.80,0.12,0.12,1},
+    accent_hovered={0.95,0.22,0.22,1},
+    accent_dim={0.55,0.05,0.05,1},
+    check_on={0.80,0.12,0.12,1},
+    slider_fill={0.75,0.10,0.10,1},
+    slider_grab={0.90,0.28,0.28,1},
+    button_active={0.80,0.12,0.12,1},
+    collapse_arrow_on={0.80,0.12,0.12,1},
 }
 
 vgui.themes.ocean = {
-    title_bg          = {0.04, 0.16, 0.28, 1.00},
-    accent            = {0.08, 0.60, 0.82, 1.00},
-    accent_hovered    = {0.15, 0.72, 0.95, 1.00},
-    accent_dim        = {0.05, 0.40, 0.58, 1.00},
-    check_on          = {0.08, 0.70, 0.85, 1.00},
-    slider_fill       = {0.08, 0.60, 0.82, 1.00},
-    slider_grab       = {0.20, 0.80, 0.95, 1.00},
-    button_active     = {0.08, 0.60, 0.82, 1.00},
-    collapse_arrow_on = {0.08, 0.60, 0.82, 1.00},
+    title_bg={0.04,0.16,0.28,1}, 
+    accent={0.08,0.60,0.82,1},
+    accent_hovered={0.15,0.72,0.95,1},
+    accent_dim={0.05,0.40,0.58,1},
+    check_on={0.08,0.70,0.85,1},
+    slider_fill={0.08,0.60,0.82,1},
+    slider_grab={0.20,0.80,0.95,1},
+    button_active={0.08,0.60,0.82,1},
+    collapse_arrow_on={0.08,0.60,0.82,1},
 }
 
 vgui.themes.mint = {
-    title_bg          = {0.06, 0.18, 0.12, 1.00},
-    accent            = {0.14, 0.80, 0.52, 1.00},
-    accent_hovered    = {0.22, 0.92, 0.62, 1.00},
-    accent_dim        = {0.08, 0.55, 0.35, 1.00},
-    check_on          = {0.14, 0.80, 0.52, 1.00},
-    slider_fill       = {0.14, 0.78, 0.50, 1.00},
-    slider_grab       = {0.25, 0.92, 0.65, 1.00},
-    button_active     = {0.14, 0.78, 0.50, 1.00},
-    collapse_arrow_on = {0.14, 0.80, 0.52, 1.00},
+    title_bg={0.06,0.18,0.12,1},
+    accent={0.14,0.80,0.52,1},
+    accent_hovered={0.22,0.92,0.62,1},
+    accent_dim={0.08,0.55,0.35,1},
+    check_on={0.14,0.80,0.52,1},
+    slider_fill={0.14,0.78,0.50,1},
+    slider_grab={0.25,0.92,0.65,1},
+    button_active={0.14,0.78,0.50,1},
+    collapse_arrow_on={0.14,0.80,0.52,1},
 }
 
 vgui.themes.violet = {
-    title_bg          = {0.15, 0.08, 0.22, 1.00},
-    accent            = {0.65, 0.25, 0.90, 1.00},
-    accent_hovered    = {0.75, 0.38, 0.98, 1.00},
-    accent_dim        = {0.42, 0.14, 0.62, 1.00},
-    check_on          = {0.65, 0.25, 0.90, 1.00},
-    slider_fill       = {0.62, 0.22, 0.88, 1.00},
-    slider_grab       = {0.78, 0.40, 0.98, 1.00},
-    button_active     = {0.65, 0.25, 0.90, 1.00},
-    collapse_arrow_on = {0.65, 0.25, 0.90, 1.00},
+    title_bg={0.15,0.08,0.22,1},
+    accent={0.65,0.25,0.90,1},
+    accent_hovered={0.75,0.38,0.98,1},
+    accent_dim={0.42,0.14,0.62,1},
+    check_on={0.65,0.25,0.90,1},
+    slider_fill={0.62,0.22,0.88,1},
+    slider_grab={0.78,0.40,0.98,1},
+    button_active={0.65,0.25,0.90,1},
+    collapse_arrow_on={0.65,0.25,0.90,1},
 }
 
 function vgui.set_theme(name_or_table)
@@ -228,7 +231,9 @@ function vgui.add_scroll(id, delta)
 end
 
 function vgui.new_frame()
-    _S.mx, _S.my = utility.get_mouse_pos()
+    local raw_mx, raw_my = utility.get_mouse_pos()
+    _S.mx        = raw_mx + vgui.offset_x
+    _S.my        = raw_my + vgui.offset_y
     _S.prev_lmb  = _S.lmb
     _S.lmb       = input.is_key_down(0x01)
     _S.clicked   = _S.lmb and not _S.prev_lmb
@@ -506,7 +511,6 @@ function vgui.end_window()
         local clip_top = wy + t.title_height + pad
         local clip_bot = wy + wh - pad
 
-
         for _, item in ipairs(items_snap) do
             if item.ay >= clip_top and item.ay + item.ah <= clip_bot then
                 table.insert(dl, item.fn)
@@ -527,7 +531,6 @@ function vgui.end_window()
                 local th_hov    = _in_rect(_S.mx, _S.my, sb_x - 2, thumb_y, sb_w + 4, thumb_h)
                 local th_col    = (_S.scrolling_id == id or th_hov)
                                   and t.scrollbar_hov or t.scrollbar_grab
-
                 local r_sbx, r_tt, r_th2, r_ty, r_thh, r_tc =
                       sb_x, track_top, track_h, thumb_y, thumb_h, th_col
                 table.insert(dl, function()
@@ -811,6 +814,140 @@ function vgui.combo(id, label, items, default)
     return val
 end
 
+function vgui.multi_combo(id, label, items, default)
+    local t     = vgui.theme
+    local n     = #items
+    local val   = _get(id, nil)
+    if val == nil then
+        local init = {}
+        if type(default) == "table" then
+            for i = 1, n do init[i] = default[i] == true end
+        else
+            for i = 1, n do init[i] = false end
+        end
+        _set(id, init)
+        val = init
+    end
+    for i = 1, n do
+        if val[i] == nil then val[i] = false end
+    end
+
+    local sh    = t.widget_height
+    local _, lh = draw.get_text_size(label, t.font_size)
+    local total_h = lh + t.item_spacing + sh
+    local x, y, w = _alloc(total_h)
+
+    local open_id = id .. "__open"
+    local is_open = _get(open_id, false)
+    local lx, ly     = x, y
+    local dx, dy, dw = x, y + lh + t.item_spacing, w
+    local dh          = sh
+    local drop_y      = dy + dh
+
+    local win     = _S.cur_win
+    local blocked = win and _input_blocked(win.id, _S.mx, _S.my) or false
+    local hov_box = not blocked and _in_rect(_S.mx, _S.my, dx, dy, dw, dh)
+
+    if hov_box and _S.clicked then
+        is_open = not is_open
+        _set(open_id, is_open)
+    end
+
+    if is_open then
+        _S.cursor_y = _S.cursor_y + n * (sh + 1)
+        for i = 1, n do
+            local iy2 = drop_y + (i - 1) * (sh + 1)
+            if not blocked
+               and _in_rect(_S.mx, _S.my, dx, iy2, dw, sh)
+               and _S.clicked then
+                val[i] = not val[i]
+                _set(id, val)
+            end
+        end
+        if _S.clicked and not hov_box
+           and not _in_rect(_S.mx, _S.my, dx, drop_y, dw, n * (sh + 1)) then
+            is_open = false
+            _set(open_id, false)
+        end
+    end
+
+    local selected_names = {}
+    for i = 1, n do
+        if val[i] then table.insert(selected_names, items[i]) end
+    end
+    local full_display = #selected_names == 0 and "None" or table.concat(selected_names, ", ")
+
+    local cv, cio, cit = val, is_open, items
+    local avail_w    = dw - 22
+    local drop_extra = is_open and n * (sh + 1) or 0
+    _push(ly, total_h + drop_extra, function()
+        draw.text(lx, ly, label, t.text, t.font_size)
+        draw.rect_filled(dx, dy, dw, dh,
+                         hov_box and t.widget_hovered or t.widget_bg, t.widget_rounding)
+        draw.rect(dx, dy, dw, dh, t.window_border, t.widget_rounding, 1)
+
+        local disp = full_display
+        local disp_w = draw.get_text_size(disp, t.font_size)
+        if disp_w > avail_w then
+            local trimmed = disp
+            while #trimmed > 1 do
+                trimmed = trimmed:sub(1, -2)
+                local tw = draw.get_text_size(trimmed .. "...", t.font_size)
+                if tw <= avail_w then
+                    disp = trimmed .. "..."
+                    break
+                end
+            end
+        end
+
+        local _, sth = draw.get_text_size(disp, t.font_size)
+        draw.text(dx + 5, dy + math.floor((dh - sth) * 0.5), disp, t.text, t.font_size)
+
+        local ax = dx + dw - 14
+        local ay = dy + math.floor(dh * 0.5)
+        if cio then
+            draw.line(ax,      ay + 3, ax + 5,  ay - 2, t.text_dim, 1.2)
+            draw.line(ax + 5,  ay - 2, ax + 10, ay + 3, t.text_dim, 1.2)
+        else
+            draw.line(ax,      ay - 3, ax + 5,  ay + 2, t.text_dim, 1.2)
+            draw.line(ax + 5,  ay + 2, ax + 10, ay - 3, t.text_dim, 1.2)
+        end
+
+        if cio then
+            local ih = sh
+            local cs = ih - 6
+            draw.rect_filled(dx, drop_y, dw, n * (ih + 1) + 2,
+                             {0.12, 0.12, 0.16, 0.98}, t.widget_rounding)
+            draw.rect(dx, drop_y, dw, n * (ih + 1) + 2,
+                      t.window_border, t.widget_rounding, 1)
+            for i = 1, n do
+                local iy2 = drop_y + (i - 1) * (ih + 1)
+                local ihm = _in_rect(_S.mx, _S.my, dx, iy2, dw, ih)
+                if ihm then
+                    draw.rect_filled(dx + 1, iy2, dw - 2, ih, t.widget_hovered, 0)
+                end
+                local cbx = dx + 5
+                local cby = iy2 + math.floor((ih - cs) * 0.5)
+                local cbg = cv[i] and t.check_on or t.widget_bg
+                draw.rect_filled(cbx, cby, cs, cs, cbg, 2)
+                draw.rect(cbx, cby, cs, cs, t.window_border, 2, 1)
+                if cv[i] then
+                    local ox = cbx + 2
+                    local oy = cby + math.floor(cs * 0.5) - 1
+                    draw.line(ox,         oy + 2, ox + 2, oy + cs - 3, {1,1,1,1}, 1.5)
+                    draw.line(ox + 2, oy + cs - 3, ox + cs - 1, oy - 1, {1,1,1,1}, 1.5)
+                end
+                local _, ith = draw.get_text_size(cit[i], t.font_size)
+                draw.text(cbx + cs + 6, iy2 + math.floor((ih - ith) * 0.5),
+                          cit[i],
+                          (cv[i] or ihm) and t.text_hovered or t.text,
+                          t.font_size)
+            end
+        end
+    end)
+    return val
+end
+
 function vgui.hotkey(id, label, default)
     local t       = vgui.theme
     local val     = _get(id, default or 0)
@@ -871,7 +1008,6 @@ function vgui.hotkey(id, label, default)
             cwt and t.accent or (hov and t.widget_hovered or t.widget_bg),
             t.widget_rounding)
         draw.rect(bx, by, bw, bh, t.window_border, t.widget_rounding, 1)
-
         local vk_names = {
             [0x01]="LMB",[0x02]="RMB",[0x04]="MMB",[0x08]="Back",[0x09]="Tab",
             [0x0D]="Enter",[0x10]="Shift",[0x11]="Ctrl",[0x12]="Alt",[0x1B]="Esc",

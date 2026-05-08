@@ -82,6 +82,30 @@ vgui.render()
 
 ---
 
+# Global Offset
+
+`vgui.offset_x` and `vgui.offset_y` shift the internal mouse cursor used for all hit-testing and interaction. Set these once before your first `vgui.new_frame()` call, or update them at any time to account for a render surface that is offset from the raw mouse position.
+
+```lua
+vgui.offset_x = 20
+vgui.offset_y = 40
+```
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `vgui.offset_x` | number | `0` | Horizontal offset added to the raw mouse X position |
+| `vgui.offset_y` | number | `0` | Vertical offset added to the raw mouse Y position |
+
+### Example
+
+```lua
+-- Render surface starts 50px from the left edge of the screen
+vgui.offset_x = 50
+vgui.offset_y = 0
+```
+
+---
+
 # Window API
 
 ---
@@ -442,6 +466,82 @@ If `"Chest"` is selected, the function returns:
 
 ---
 
+## `vgui.multi_combo(id, label, items, default)`
+
+Creates a multi-selection dropdown combo box. Each item has an independent checkbox, allowing any combination of options to be selected simultaneously.
+
+```lua
+local selected = vgui.multi_combo(
+    "hitbox_select",
+    "Hitboxes",
+    {
+        "Head",
+        "Chest",
+        "Stomach",
+        "Legs"
+    },
+    { true, true, false, false }
+)
+```
+
+### Arguments
+
+| Argument | Type | Description |
+|---|---|---|
+| `id` | string | Unique internal ID |
+| `label` | string | Text displayed above the combo |
+| `items` | table | List of selectable options |
+| `default` | table/nil | Array of booleans for the starting state of each item. Omit to default all items to `false` |
+
+### Returns
+
+```lua
+{ boolean, boolean, ... }
+```
+
+Returns a boolean array where each index corresponds to the matching item in `items`. `true` means that item is currently selected.
+
+### Notes
+
+- The dropdown header previews selected item names separated by commas
+- If the preview text is too wide for the widget it is automatically truncated with `...`
+- If nothing is selected the header displays `"None"`
+- Clicking outside the open dropdown closes it without changing selection
+
+### Example
+
+```lua
+local bones = vgui.multi_combo(
+    "esp_bones",
+    "ESP Bones",
+    { "Head", "Spine", "Arms", "Legs" },
+    { true, false, false, false }
+)
+
+if bones[1] then draw_head_esp() end
+if bones[2] then draw_spine_esp() end
+if bones[3] then draw_arm_esp() end
+if bones[4] then draw_leg_esp() end
+```
+
+### Programmatic Control
+
+Because values are stored internally by ID you can read or write them at any time with `vgui.get` and `vgui.set`:
+
+```lua
+-- Read current selection
+local sel = vgui.get("esp_bones")
+print(sel[1]) -- true/false
+
+-- Force-select all items
+vgui.set("esp_bones", { true, true, true, true })
+
+-- Clear all items
+vgui.set("esp_bones", { false, false, false, false })
+```
+
+---
+
 ## `vgui.hotkey(id, label, default_vk)`
 
 Creates a keybind selector.
@@ -710,6 +810,9 @@ utility.load_url("https://raw.githubusercontent.com/HungryKelvin123/VGui/refs/he
 
 vgui.set_theme("ocean")
 
+vgui.offset_x = 0
+vgui.offset_y = 0
+
 vgui.bind("menu", 0x50)
 
 function on_frame()
@@ -758,6 +861,18 @@ function on_frame()
                 "AWP"
             },
             1
+        )
+
+        local hitboxes = vgui.multi_combo(
+            "hitboxes",
+            "Hitboxes",
+            {
+                "Head",
+                "Chest",
+                "Stomach",
+                "Legs"
+            },
+            { true, true, false, false }
         )
 
         local key = vgui.hotkey(
